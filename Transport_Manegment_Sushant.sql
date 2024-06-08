@@ -62,6 +62,14 @@ CREATE TABLE Bookings (
 SELECT * FROM  Bookings;
 
 
+CREATE TABLE Drivers (
+    DriverID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    LicenseNumber VARCHAR(50) NOT NULL,
+    PhoneNumber VARCHAR(50) NOT NULL
+);
+ Select * from Drivers;
+
 INSERT INTO Vehicles (Model, Capacity, Type, Status) VALUES
 ('Volvo XC90', 7.50, 'SUV', 'Active'),
 ('Ford Transit', 12.00, 'Van', 'Active'),
@@ -126,3 +134,55 @@ INSERT INTO Bookings (TripID, PassengerID, BookingDate, Status) VALUES
 (7, 8, '2024-05-04 11:00:00', 'Notconfirmed'),
 (9, 9, '2024-05-05 10:00:00', 'Confirmed'),
 (9, 10, '2024-05-05 11:00:00', 'Confirmed');
+
+
+INSERT INTO Drivers (Name, LicenseNumber, PhoneNumber) VALUES
+('Ravi Verma', 'DL12345', '111-222-3333'),
+('Suman Mishra', 'DL67890', '222-333-4444'),
+('Vijay Anand', 'DL11223', '333-444-5555'),
+('Kiran Joshi', 'DL44556', '444-555-6666'),
+('Ayesha Khan', 'DL77889', '555-666-7777'),
+('Sunil Das', 'DL99001', '666-777-8888'),
+('Preeti Kaur', 'DL22334', '777-888-9999'),
+('Arvind Patel', 'DL55667', '888-999-0000'),
+('Manoj Nair', 'DL88900', '999-000-1111'),
+('Seema Reddy', 'DL11234', '000-111-2222');
+
+
+
+ALTER TABLE Trips ADD COLUMN DriverID INT;
+ALTER TABLE Trips ADD FOREIGN KEY (DriverID) REFERENCES Drivers(DriverID);
+
+
+CREATE TABLE Admins (
+    AdminID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(255) NOT NULL UNIQUE,
+    Password VARCHAR(255) NOT NULL
+);
+
+select * from Admins;
+
+CREATE TABLE Users (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(255) UNIQUE NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    Role VARCHAR(50) NOT NULL
+);
+
+select * from users;
+
+CREATE TABLE Customers (
+    CustomerID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    PhoneNumber VARCHAR(50) NOT NULL,
+    Email VARCHAR(255) UNIQUE NOT NULL,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+select * from customers;
+
+
+
+
+
