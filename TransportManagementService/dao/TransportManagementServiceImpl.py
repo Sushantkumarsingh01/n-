@@ -1,0 +1,281 @@
+from util.DBConnection import DatabaseConnect
+from entity.Vehicle import Vehicle
+from entity.Booking import Booking
+from entity.Driver import Driver
+import logging
+
+
+import mysql.connector
+logger = logging.getLogger("my_log")
+
+
+class TransportManagementServiceImpl:
+    def __init__(self):
+        self.db_connection = DatabaseConnect()
+        self.connection = self.db_connection.connect()
+
+    def get_user_role(self, username, password):
+        logger.info("________________Get user role method_____________")
+        try:
+            self.db_connection.connect()
+            query = "SELECT Role FROM Users WHERE Username = %s AND Password = %s"
+            self.db_connection.execute_query(query, (username, password))
+            result = self.db_connection.cursor.fetchone()
+            self.db_connection.disconnect()
+            return result[0] if result else None
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return None
+
+    def get_customer_id(self, username):
+        logger.info("________________Get customer id method_____________")
+        try:
+            self.db_connection.connect()
+            query = "SELECT CustomerID FROM Customers WHERE Username = %s"
+            self.db_connection.execute_query(query, (username,))
+            result = self.db_connection.cursor.fetchone()
+            self.db_connection.disconnect()
+            return result[0] if result else None
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return None
+
+    def register_user(self, first_name, last_name, phone_number, email, username, password, role):
+        logger.info("________________Register user method_____________")
+        try:
+            self.db_connection.connect()
+            query = "INSERT INTO Users (Username, Password, Role) VALUES (%s, %s, %s)"
+            self.db_connection.execute_query(query, (username, password, role))
+            user_id = self.db_connection.cursor.lastrowid
+
+            if role == "customer":
+                query = "INSERT INTO Customers (UserID, FirstName, LastName, PhoneNumber, Email) VALUES (%s, %s, %s, %s, %s)"
+                self.db_connection.execute_query(query, (user_id, first_name, last_name, phone_number, email))
+            elif role == "admin":
+                query = "INSERT INTO Admins (UserID) VALUES (%s)"
+                self.db_connection.execute_query(query, (user_id,))
+
+            self.db_connection.connection.commit()
+            self.db_connection.disconnect()
+            return True
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return False
+
+    def authenticate_admin(self, username, password):
+        logger.info("________________Admin authentication method_____________")
+        try:
+            self.db_connection.connect()
+            query = "SELECT * FROM Admins WHERE Username = %s AND Password = %s"
+            self.db_connection.execute_query(query, (username, password))
+            result = self.db_connection.cursor.fetchone()
+            self.db_connection.disconnect()
+            return result is not None
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return False
+
+    def authenticate_user(self, username, password):
+        logger.info("________________Authenticate user method_____________")
+        try:
+            self.db_connection.connect()
+            query = "SELECT Role FROM Users WHERE Username = %s AND Password = %s"
+            self.db_connection.execute_query(query, (username, password))
+            result = self.db_connection.cursor.fetchone()
+            self.db_connection.disconnect()
+            return result[0] if result else None
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return None
+
+    def addVehicle(self, vehicle):
+        logger.info("________________Add vehical method_____________")
+        try:
+            cursor = self.connection.cursor()
+            query = "INSERT INTO Vehicles (Model, Capacity, Type, Status) VALUES (%s, %s, %s, %s)"
+            cursor.execute(query, (vehicle.model, vehicle.capacity, vehicle.type, vehicle.status))
+            self.connection.commit()
+            cursor.close()
+            return True
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return False
+
+    def updateVehicle(self, vehicle):
+        logger.info("________________Update vehical method_____________")
+        try:
+            cursor = self.connection.cursor()
+            query = "UPDATE Vehicles SET Model = %s, Capacity = %s, Type = %s, Status = %s WHERE VehicleID = %s"
+            cursor.execute(query, (vehicle.model, vehicle.capacity, vehicle.type, vehicle.status, vehicle.vehicle_id))
+            self.connection.commit()
+            cursor.close()
+            return True
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return False
+
+    def deleteVehicle(self, vehicle_id):
+        logger.info("________________Delete vehical method_____________")
+
+        try:
+            cursor = self.connection.cursor()
+            query = "DELETE FROM Vehicles WHERE VehicleID = %s"
+            cursor.execute(query, (vehicle_id,))
+            self.connection.commit()
+            cursor.close()
+            return True
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return False
+
+    def get_available_routes(self):
+        logger.info("________________Get available routes method_____________")
+        try:
+            self.db_connection.connect()
+            query = "SELECT * FROM Routes"
+            self.db_connection.execute_query(query)
+            routes = self.db_connection.cursor.fetchall()
+            self.db_connection.disconnect()
+            return routes
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return []
+
+
+
+    def scheduleTrip(self, vehicle_id, route_id, departure_date, arrival_date, trip_type, max_passengers):
+        logger.info("________________Schedule Trip method_____________")
+        try:
+            self.db_connection.connect()
+            query = "INSERT INTO Trips (VehicleID, RouteID, DepartureDate, ArrivalDate, TripType, MaxPassengers, Status) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            self.db_connection.execute_query(query, (
+            vehicle_id, route_id, departure_date, arrival_date, trip_type, max_passengers, 'Scheduled'))
+            self.db_connection.connection.commit()
+            self.db_connection.disconnect()
+            return True
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return False
+
+    def cancelTrip(self, trip_id):
+        logger.info("________________Cancel Trip method_____________")
+        try:
+            cursor = self.connection.cursor()
+            query = "DELETE FROM Trips WHERE TripID = %s"
+            cursor.execute(query, (trip_id,))
+            self.connection.commit()
+            cursor.close()
+            return True
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return False
+
+    def bookTrip(self, trip_id, passenger_id, booking_date):
+        logger.info("________________Book Trip method_____________")
+        try:
+            self.db_connection.connect()
+            query = "INSERT INTO Bookings (TripID, PassengerID, BookingDate, Status) VALUES (%s, %s, %s, %s)"
+            self.db_connection.execute_query(query, (trip_id, passenger_id, booking_date, 'Booked'))
+            self.db_connection.connection.commit()
+            self.db_connection.disconnect()
+            return True
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return False
+
+    def cancelBooking(self, booking_id):
+        logger.info("________________Cancel trip method_____________")
+        try:
+            cursor = self.connection.cursor()
+            query = "DELETE FROM Bookings WHERE BookingID = %s"
+            cursor.execute(query, (booking_id,))
+            self.connection.commit()
+            cursor.close()
+            return True
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return False
+
+    def allocateDriver(self, trip_id, driver_id):
+        logger.info("________________Allocate Driver method_____________")
+        try:
+            self.db_connection.connect()
+            query = "UPDATE Trips SET DriverID = %s WHERE TripID = %s"
+            self.db_connection.execute_query(query, (driver_id, trip_id))
+            self.db_connection.connection.commit()
+            self.db_connection.disconnect()
+            return True
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return False
+
+    def deallocateDriver(self, trip_id):
+        logger.info("________________Deallocate Driver method_____________")
+        try:
+            cursor = self.connection.cursor()
+            query = "UPDATE Trips SET DriverID = NULL WHERE TripID = %s"
+            cursor.execute(query, (trip_id,))
+            self.connection.commit()
+            cursor.close()
+            return True
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return False
+
+    def getBookingsByPassenger(self, passenger_id):
+        logger.info("________________ Get Bookings By Passenger method_____________")
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT * FROM Bookings WHERE PassengerID = %s"
+            cursor.execute(query, (passenger_id,))
+            bookings = cursor.fetchall()
+            cursor.close()
+            return [Booking(*booking) for booking in bookings]
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return []
+
+    def getBookingsByTrip(self, trip_id):
+        logger.info("________________ Get Bookings By Trip method_____________")
+
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT * FROM Bookings WHERE TripID = %s"
+            cursor.execute(query, (trip_id,))
+            bookings = cursor.fetchall()
+            cursor.close()
+            return [Booking(*booking) for booking in bookings]
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return []
+
+    def getAvailableDrivers(self):
+        logger.info("________________ Get Available Drivers method_____________")
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT * FROM Drivers WHERE DriverID NOT IN (SELECT DriverID FROM Trips WHERE DriverID IS NOT NULL)"
+            cursor.execute(query)
+            drivers = cursor.fetchall()
+            cursor.close()
+            return [Driver(*driver) for driver in drivers]
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            logger.exception("Database exception")
+            return []

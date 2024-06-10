@@ -1,0 +1,61 @@
+2024-06-10 11:12:58,329 main              line: 366  WARNING  Warning message
+2024-06-10 11:12:58,329 main              line: 367  ERROR    Error message
+2024-06-10 11:19:09,945 main              line: 366  WARNING  Warning message
+2024-06-10 11:19:09,945 main              line: 367  ERROR    Error message
+2024-06-10 11:20:22,893 main              line: 366  WARNING  Warning message
+2024-06-10 11:20:22,894 main              line: 367  ERROR    Error message
+2024-06-10 11:22:58,860 main              line: 735  WARNING  Warning message
+2024-06-10 11:22:58,860 main              line: 736  ERROR    Error message
+2024-06-10 11:42:27,206 main              line: 324  WARNING  Warning message
+2024-06-10 11:42:27,207 main              line: 325  ERROR    Error message
+2024-06-10 11:53:28,252 main              line: 326  WARNING  Warning message
+2024-06-10 11:53:28,252 main              line: 327  ERROR    Error message
+2024-06-10 11:55:14,246 main              line: 326  WARNING  Warning message
+2024-06-10 11:55:14,246 main              line: 327  ERROR    Error message
+2024-06-10 11:55:14,495 __init__          line: 149  INFO     package: mysql.connector.plugins
+2024-06-10 11:55:14,496 __init__          line: 150  INFO     plugin_name: caching_sha2_password
+2024-06-10 11:55:14,496 __init__          line: 154  INFO     AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2024-06-10 11:57:51,504 main              line: 326  WARNING  Warning message
+2024-06-10 11:57:51,504 main              line: 327  ERROR    Error message
+2024-06-10 11:57:51,760 __init__          line: 149  INFO     package: mysql.connector.plugins
+2024-06-10 11:57:51,761 __init__          line: 150  INFO     plugin_name: caching_sha2_password
+2024-06-10 11:57:51,761 __init__          line: 154  INFO     AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2024-06-10 11:58:05,473 TransportManagementServiceImpl line: 69   INFO     ________________Admin authentication method_____________
+2024-06-10 11:59:15,953 main              line: 326  WARNING  Warning message
+2024-06-10 11:59:15,953 main              line: 327  ERROR    Error message
+2024-06-10 12:06:13,753 main              line: 326  WARNING  Warning message
+2024-06-10 12:06:13,753 main              line: 327  ERROR    Error message
+2024-06-10 12:12:07,531 main              line: 326  WARNING  Warning message
+2024-06-10 12:12:07,531 main              line: 327  ERROR    Error message
+2024-06-10 12:12:07,871 main              line: 326  WARNING  Warning message
+2024-06-10 12:12:07,874 main              line: 327  ERROR    Error message
+2024-06-10 12:15:11,138 main              line: 327  WARNING  Warning message
+2024-06-10 12:15:11,138 main              line: 328  ERROR    Error message
+2024-06-10 12:16:23,393 main              line: 328  WARNING  Warning message
+2024-06-10 12:16:23,394 main              line: 329  ERROR    Error message
+2024-06-10 12:19:00,941 main              line: 329  WARNING  Warning message
+2024-06-10 12:19:00,942 main              line: 330  ERROR    Error message
+2024-06-10 12:20:14,736 main              line: 329  WARNING  Warning message
+2024-06-10 12:20:14,736 main              line: 330  ERROR    Error message
+2024-06-10 12:20:41,400 main              line: 329  WARNING  Warning message
+2024-06-10 12:20:41,400 main              line: 330  ERROR    Error message
+2024-06-10 12:20:41,845 __init__          line: 149  INFO     package: mysql.connector.plugins
+2024-06-10 12:20:41,845 __init__          line: 150  INFO     plugin_name: caching_sha2_password
+2024-06-10 12:20:41,845 __init__          line: 154  INFO     AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2024-06-10 12:20:57,168 TransportManagementServiceImpl line: 83   INFO     ________________Authenticate user method_____________
+2024-06-10 12:20:57,274 main              line: 66   INFO     Existing Customer Login
+2024-06-10 12:23:39,600 main              line: 328  WARNING  Warning message
+2024-06-10 12:23:39,600 main              line: 329  ERROR    Error message
+2024-06-10 12:23:39,899 __init__          line: 149  INFO     package: mysql.connector.plugins
+2024-06-10 12:23:39,899 __init__          line: 150  INFO     plugin_name: caching_sha2_password
+2024-06-10 12:23:39,899 __init__          line: 154  INFO     AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2024-06-10 12:23:48,727 TransportManagementServiceImpl line: 69   INFO     ________________Admin authentication method_____________
+2024-06-10 12:23:48,858 main              line: 103  INFO     Existing Customer Login
+
+2024-06-10 12:24:42,842 main              line: 328  WARNING  Warning message
+2024-06-10 12:24:42,843 main              line: 329  ERROR    Error message
+2024-06-10 12:24:43,146 __init__          line: 149  INFO     package: mysql.connector.plugins
+2024-06-10 12:24:43,146 __init__          line: 150  INFO     plugin_name: caching_sha2_password
+2024-06-10 12:24:43,146 __init__          line: 154  INFO     AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2024-06-10 12:24:49,309 TransportManagementServiceImpl line: 69   INFO     ________________Admin authentication method_____________
+2024-06-10 12:24:49,448 main              line: 103  INFO     Existing Admin Login
