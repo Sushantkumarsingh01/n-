@@ -1,0 +1,16 @@
+2024-06-12 15:26:48,073 main              line: 55   WARNING  Warning message
+2024-06-12 15:26:48,073 main              line: 56   ERROR    Error message
+2024-06-12 15:26:48,073 main              line: 25   INFO     _______Searching by ID_______
+2024-06-12 16:24:56,086 main              line: 56   WARNING  Warning message
+2024-06-12 16:24:56,086 main              line: 57   ERROR    Error message
+2024-06-12 16:26:34,423 main              line: 56   WARNING  Warning message
+2024-06-12 16:26:34,424 main              line: 57   ERROR    Error message
+2024-06-12 16:26:34,424 inventory_dao     line: 11   INFO     Item added: <entities.electronics.Electronics object at 0x0000020A63A2E150>
+2024-06-12 16:26:34,424 inventory_dao     line: 11   INFO     Item added: <entities.electronics.Electronics object at 0x0000020A63CC1FA0>
+2024-06-12 16:26:34,427 inventory_dao     line: 11   INFO     Item added: <entities.clothing.Clothing object at 0x0000020A63CC2030>
+2024-06-12 16:26:34,428 inventory_dao     line: 11   INFO     Item added: <entities.grocery.Grocery object at 0x0000020A63CC2240>
+2024-06-12 16:26:34,428 inventory_dao     line: 28   INFO     Item found by ID 4: <entities.grocery.Grocery object at 0x0000020A63CC2240>
+2024-06-12 16:26:34,428 main              line: 25   INFO     _______Searching by ID_______
+2024-06-12 16:26:34,428 inventory_dao     line: 35   INFO     Item found by name Milk: <entities.grocery.Grocery object at 0x0000020A63CC2240>
+2024-06-12 16:26:34,428 main              line: 33   INFO     _______Searching by name_______
+2024-06-12 16:26:34,428 inventory_dao     line: 21   INFO     Item removed: <entities.electronics.Electronics object at 0x0000020A63CC1FA0>
