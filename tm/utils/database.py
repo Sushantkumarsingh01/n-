@@ -4,14 +4,14 @@ import time
 
 class DatabaseConnect:
     def __init__(self, database='TransportManagement'):
-        config = configparser.ConfigParser()
-        config.read('config.ini')
-        database_config = config['Database']
+        # config = configparser.ConfigParser()
+        # config.read('./config.ini')
+        # database_config = config['Database']
 
-        self.host = database_config['host']
-        self.user = database_config['user']
-        self.password = database_config['password']
-        self.database = database
+        self.host = 'localhost'
+        self.user = 'root'
+        self.password = 'Sushant@9546'
+        self.database = 'TransportManagement'
         self.connection = None
         self.cursor = None
 

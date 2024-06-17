@@ -1,5 +1,4 @@
 
-
 from fastapi import APIRouter, HTTPException
 from schemas.user import User
 from schemas.user_service import UserService
@@ -13,6 +12,8 @@ def register_user(user: User):
         return {"message": "User registered successfully!"}
     else:
         raise HTTPException(status_code=400, detail="Failed to register user.")
+
+
 
 @router.post("/login")
 def login_user(username: str, password: str):

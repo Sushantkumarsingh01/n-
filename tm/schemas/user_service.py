@@ -8,11 +8,12 @@ class UserService:
             db_connection = DatabaseConnect()
             db_connection.connect()
             query = """
-            INSERT INTO Users (FirstName, LastName, PhoneNumber, Email, Username, Password, Role)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO Customers (UserID, FirstName, LastName, PhoneNumber, Email)
+            VALUES ((SELECT UserID FROM Users WHERE Username = %s), %s, %s, %s, %s)
             """
+            print("Executing query:", query)  # Print the query
             db_connection.execute_query(query, (
-                user.first_name, user.last_name, user.phone_number, user.email, user.username, user.password, user.role
+                user.username, user.first_name, user.last_name, user.phone_number, user.email
             ))
             db_connection.connection.commit()
             db_connection.disconnect()
@@ -29,6 +30,7 @@ class UserService:
             query = "SELECT Role FROM Users WHERE Username = %s AND Password = %s"
             db_connection.execute_query(query, (username, password))
             result = db_connection.cursor.fetchone()
+            print(result)
             db_connection.disconnect()
             return result[0] if result else None
         except Exception as e:
